@@ -1,0 +1,149 @@
+body {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
+
+header{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 0 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+}
+
+nav li {
+    margin-right: 40px;
+
+}
+
+nav a {
+    font-size: 2em;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    }
+
+#juststreamit {
+    color: #ffffff;
+    text-decoration: none;
+    position: absolute;
+    top: 20px;
+    left: 200px;
+}
+
+nav a:hover {
+    color: #8786c5;
+    border-bottom: 3px solid #8786c5;
+}
+
+h1, h2{
+    font-size: 3em;
+    font-weight: bold;
+    margin: 0;
+    padding: 50;
+    text-align: center;
+}
+
+h3{
+    font-weight: bold;
+    line-height: 24px;
+    margin: 40px;
+    padding: 50;
+    text-align: center;
+    font-size: 2em;
+}
+
+.slider {
+    position: relative;
+    margin: auto;
+    padding: 20px 13px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    width: 85%;
+    overflow-x: hidden;
+}
+
+.slider ul li {
+    display: inline-block;
+    margin: 0 10px;
+}
+.slider ul li img {
+    height: 400px;
+    width: 300px;
+}
+
+.slider ul li img:hover {
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+
+.arrow {
+    position: absolute;
+    top: 45%;
+    font-size: 50px;
+    color: white;
+}
+
+.arrow.left {
+    left: 10px;
+}
+
+.arrow.right {
+    right: 10px;
+}
+.button:hover{
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+
+  
+/* .caroussel{
+
+    background-color: #8786c5;
+    padding: 20px 13px;
+    border: 1px solid #CCCCCC;
+    border-radius: 15px;
+    overflow-x: hidden;
+}
+
+.slider {
+    display: inline-block;
+}
+.item {
+    width : 150px;
+    height : 150px;
+    text-align: center;
+
+} */
+#best_movie{
+    display: flex;
+    justify-content: space-around;
+    margin: 200px;
+}
+
+img {
+    height: 400px;
+    width: 300px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.item{
+    font-size: 2em;
+}
+
+
+/* li {
+    display: inline-block;
+    list-style-type: none;
+    margin: 0;
+    padding: 15px;
+
+} */

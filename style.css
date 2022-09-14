@@ -29,6 +29,10 @@ nav a {
     font-weight: bold;
     }
 
+.best_movie {
+    padding: 15px;
+}
+
 #juststreamit {
     color: #ffffff;
     text-decoration: none;
@@ -83,6 +87,10 @@ h3{
     transition: 0.5s;
 }
 
+.slide_list {
+    width: max-content;
+}
+
 .arrow {
     position: absolute;
     top: 45%;
@@ -133,6 +141,7 @@ img {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    border: #ffffff 3px solid;
 }
 
 .item{

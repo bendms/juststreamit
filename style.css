@@ -105,9 +105,8 @@ h3{
 .arrow.right {
     right: 10px;
 }
-.button:hover{
-    transform: scale(1.1);
-    transition: 0.5s;
+button:hover{
+    cursor: pointer;
 }
 
   

@@ -1,6 +1,6 @@
 # Just Stream It
 
-![CHESS TOURNAMENT MANAGER AND PAIRING SYSTEM](https://user-images.githubusercontent.com/97233634/187218721-9890d752-b5d1-411c-b4c8-ca1db0b76f3e.png)
+![Copie de CHESS TOURNAMENT MANAGER AND PAIRING SYSTEM](https://user-images.githubusercontent.com/97233634/190144972-fc99a06d-c39a-4ad7-aaba-64cfe62161e2.png)
 
 ## Review : 
 

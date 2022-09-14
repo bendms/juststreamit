@@ -84,6 +84,7 @@ function getBestMovie() {
   fetch("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score")
     .then(response => response.json())
     .then(data => {
+      button = document.createElement("button");
       var img = document.getElementById("best_movie_picture");
       img.src = data.results[0].image_url;
       best_movie.appendChild(img);

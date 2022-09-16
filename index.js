@@ -89,7 +89,7 @@ function getBestMovie() {
       best_movie.appendChild(img);
     });
   }
-
+  
 getBestMovie();
 
   function getBestMovies() {
@@ -144,6 +144,7 @@ getBestMovie();
   }
 
 
+
 getBestMovies();
 
 function getBestScienceFictionMovies() {
@@ -153,15 +154,49 @@ function getBestScienceFictionMovies() {
       for (var i = 0; i < 7; i++) {
         li = document.createElement("li");
         button = document.createElement("button");
+        var id = data.results[i].id;
         img = document.createElement("img");
+        img.setAttribute("id", id)
         img.src = data.results[i].image_url;
         li.appendChild(button);
         button.appendChild(img);
         slider2.firstElementChild.appendChild(li);
-        slider2.firstElementChild.removeChild(slider2.firstElementChild.firstElementChild);
+        var btn = document.getElementById(id);
+        btn.addEventListener("click", function(id) {
+          console.log("hello click");
+          modal.style.display = "block";
+          fetch("http://localhost:8000/api/v1/titles/" + id.target.id)  
+            .then(response => response.json())
+            .then(data => {
+              var imgModal = document.getElementById("modal_picture");
+              imgModal.src = data.image_url;
+              var title = document.getElementById("modal_title");
+              title.innerHTML = data.title;
+              var genre = document.getElementById("modal_genre");
+              genre.innerHTML = data.genres;
+              var year = document.getElementById("modal_year");
+              year.innerHTML = data.date_published;
+              var rate = document.getElementById("modal_rate");
+              rate.innerHTML = data.rated;
+              var imdbScore = document.getElementById("modal_imdb_score");
+              imdbScore.innerHTML = data.imdb_score;
+              var director = document.getElementById("modal_director");
+              director.innerHTML = data.director;
+              var actors = document.getElementById("modal_actors");
+              actors.innerHTML = data.actors;
+              var duration = document.getElementById("modal_duration");
+              duration.innerHTML = data.duration;
+              var country = document.getElementById("modal_country");
+              country.innerHTML = data.country;
+              var worldwideGrossIncome = document.getElementById("modal_worldwide_gross_income");
+              worldwideGrossIncome.innerHTML = data.worldwide_gross_income;
+              var description = document.getElementById("modal_description");
+              description.innerHTML = data.description;
+            });
+        });
       }
     });
-  }
+}
 
 getBestScienceFictionMovies();
 
@@ -172,16 +207,49 @@ function getBestAdventureMovies() {
       for (var i = 0; i < 7; i++) {
         li = document.createElement("li");
         button = document.createElement("button");
+        var id = data.results[i].id;
         img = document.createElement("img");
+        img.setAttribute("id", id)
         img.src = data.results[i].image_url;
         li.appendChild(button);
         button.appendChild(img);
         slider3.firstElementChild.appendChild(li);
-        slider3.firstElementChild.removeChild(slider3.firstElementChild.firstElementChild);
+        var btn = document.getElementById(id);
+        btn.addEventListener("click", function(id) {
+          console.log("hello click");
+          modal.style.display = "block";
+          fetch("http://localhost:8000/api/v1/titles/" + id.target.id)  
+            .then(response => response.json())
+            .then(data => {
+              var imgModal = document.getElementById("modal_picture");
+              imgModal.src = data.image_url;
+              var title = document.getElementById("modal_title");
+              title.innerHTML = data.title;
+              var genre = document.getElementById("modal_genre");
+              genre.innerHTML = data.genres;
+              var year = document.getElementById("modal_year");
+              year.innerHTML = data.date_published;
+              var rate = document.getElementById("modal_rate");
+              rate.innerHTML = data.rated;
+              var imdbScore = document.getElementById("modal_imdb_score");
+              imdbScore.innerHTML = data.imdb_score;
+              var director = document.getElementById("modal_director");
+              director.innerHTML = data.director;
+              var actors = document.getElementById("modal_actors");
+              actors.innerHTML = data.actors;
+              var duration = document.getElementById("modal_duration");
+              duration.innerHTML = data.duration;
+              var country = document.getElementById("modal_country");
+              country.innerHTML = data.country;
+              var worldwideGrossIncome = document.getElementById("modal_worldwide_gross_income");
+              worldwideGrossIncome.innerHTML = data.worldwide_gross_income;
+              var description = document.getElementById("modal_description");
+              description.innerHTML = data.description;
+            });
+        });
       }
     });
-  }
-
+}
 
 getBestAdventureMovies();
 
@@ -192,15 +260,49 @@ function getBestActionMovies() {
       for (var i = 0; i < 7; i++) {
         li = document.createElement("li");
         button = document.createElement("button");
+        var id = data.results[i].id;
         img = document.createElement("img");
+        img.setAttribute("id", id)
         img.src = data.results[i].image_url;
         li.appendChild(button);
         button.appendChild(img);
         slider4.firstElementChild.appendChild(li);
-        slider4.firstElementChild.removeChild(slider4.firstElementChild.firstElementChild);
+        var btn = document.getElementById(id);
+        btn.addEventListener("click", function(id) {
+          console.log("hello click");
+          modal.style.display = "block";
+          fetch("http://localhost:8000/api/v1/titles/" + id.target.id)  
+            .then(response => response.json())
+            .then(data => {
+              var imgModal = document.getElementById("modal_picture");
+              imgModal.src = data.image_url;
+              var title = document.getElementById("modal_title");
+              title.innerHTML = data.title;
+              var genre = document.getElementById("modal_genre");
+              genre.innerHTML = data.genres;
+              var year = document.getElementById("modal_year");
+              year.innerHTML = data.date_published;
+              var rate = document.getElementById("modal_rate");
+              rate.innerHTML = data.rated;
+              var imdbScore = document.getElementById("modal_imdb_score");
+              imdbScore.innerHTML = data.imdb_score;
+              var director = document.getElementById("modal_director");
+              director.innerHTML = data.director;
+              var actors = document.getElementById("modal_actors");
+              actors.innerHTML = data.actors;
+              var duration = document.getElementById("modal_duration");
+              duration.innerHTML = data.duration;
+              var country = document.getElementById("modal_country");
+              country.innerHTML = data.country;
+              var worldwideGrossIncome = document.getElementById("modal_worldwide_gross_income");
+              worldwideGrossIncome.innerHTML = data.worldwide_gross_income;
+              var description = document.getElementById("modal_description");
+              description.innerHTML = data.description;
+            });
+        });
       }
     });
-  }
+}
 
 getBestActionMovies();
 
@@ -208,42 +310,6 @@ getBestActionMovies();
 
 // Get the modal
 var modal = document.getElementById("myModal");
-
-function displayModal() {
-  console.log("hello");
-  // var modalContent = document.getElementById("modal-content");
-  // modal.style.display = "block";
-  // fetch("http://localhost:8000/api/v1/titles/" + id)
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     var imgModal = document.getElementById("modal_picture");
-  //     imgModal.src = data.image_url;
-  //     console.log(data);
-  //     modalContent.appendChild(img);
-  //     var title = document.getElementById("modal_title");
-  //     title.innerHTML = data.title;
-  //     var genre = document.getElementById("modal_genre");
-  //     genre.innerHTML = data.genres;
-  //     var year = document.getElementById("modal_year");
-  //     year.innerHTML = data.date_published;
-  //     var rate = document.getElementById("modal_rate");
-  //     rate.innerHTML = data.rated;
-  //     var imdbScore = document.getElementById("modal_imdb_score");
-  //     imdbScore.innerHTML = data.imdb_score;
-  //     var director = document.getElementById("modal_director");
-  //     director.innerHTML = data.director;
-  //     var actors = document.getElementById("modal_actors");
-  //     actors.innerHTML = data.actors;
-  //     var duration = document.getElementById("modal_duration");
-  //     duration.innerHTML = data.duration;
-  //     var country = document.getElementById("modal_country");
-  //     country.innerHTML = data.country;
-  //     var worldwideGrossIncome = document.getElementById("modal_worldwide_gross_income");
-  //     worldwideGrossIncome.innerHTML = data.worldwide_gross_income;
-  //     var description = document.getElementById("modal_description");
-  //     description.innerHTML = data.description;
-  //   });
-}
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];

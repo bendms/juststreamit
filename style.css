@@ -188,18 +188,44 @@ img {
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   }
+
   
   /* Modal Content/Box */
   .modal-content {
-    background-color: #696969;
+    background-color: #1d1d1d;
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 80%; 
     height: 80%;
     font-size: 3em;
+    text-align: center;
+    border-radius: 25px;
+    
   }
   
+  #modal_picture{
+    height: 800px;
+    width: 600px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border: #ffffff 3px solid;
+  }
+
+  /* #modal_title{
+    text-align: center;
+    color: #ffffff;
+    font-size: 2em;
+  }
+
+
+  #modal_genre, #modal_year, #modal_rate, #modal_imdb_score, #modal_director, #modal_actors, #modal_duration, #modal_country, #modal_worldwide_gross, #modal_description{
+    text-align: center;
+    color: #ffffff;
+    font-size: 1.2em;
+  } */
+
   /* The Close Button */
   .close {
     color: rgb(0, 0, 0);

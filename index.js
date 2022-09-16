@@ -19,54 +19,53 @@ var rightBtn4 = slider4.querySelector('button.right');
 
 var value = li.length;
 
+
 // FUNCTIONS FOR SCROLLING SLIDERS
 
-function scrollRightFirstSlider() {
-  var newContent = slider.firstElementChild.firstElementChild.firstElementChild.cloneNode(true);
-  slider.firstElementChild.firstElementChild.appendChild(newContent);
-  slider.firstElementChild.firstElementChild.removeChild(slider.firstElementChild.firstElementChild.firstElementChild);
-}
+// function scrollRightFirstSlider() {
+//   var newContent = slider.firstElementChild.firstElementChild.firstElementChild.cloneNode(true);
+//   slider.firstElementChild.firstElementChild.appendChild(newContent);
+//   slider.firstElementChild.firstElementChild.removeChild(slider.firstElementChild.firstElementChild.firstElementChild);
+// }
 
 function scrollLeftFirstSlider() {
-  var newContent = slider.firstElementChild.firstElementChild.lastElementChild.cloneNode(true);
-  slider.firstElementChild.firstElementChild.insertBefore(newContent, slider.firstElementChild.firstElementChild.firstElementChild);
-  slider.firstElementChild.firstElementChild.removeChild(slider.firstElementChild.firstElementChild.lastElementChild);
+  var lastLi = slider1.firstElementChild.lastElementChild;
+  slider1.firstElementChild.insertBefore(lastLi, slider1.firstElementChild.firstElementChild);
+}
+
+function scrollRightFirstSlider() {
+  var firstLi = slider1.firstElementChild.firstElementChild;
+  slider1.firstElementChild.appendChild(firstLi);
 }
 
 function scrollLeftSecondSlider() {
-  var newContent = slider2.firstElementChild.lastElementChild.cloneNode(true);
-  slider2.firstElementChild.insertBefore(newContent, slider2.firstElementChild.firstElementChild);
-  slider2.firstElementChild.removeChild(slider2.firstElementChild.lastElementChild);
+  var lastLi = slider2.firstElementChild.lastElementChild;
+  slider2.firstElementChild.insertBefore(lastLi, slider2.firstElementChild.firstElementChild);
 }
 
 function scrollRightSecondSlider() {
-  var newContent = slider2.firstElementChild.firstElementChild.cloneNode(true);
-  slider2.firstElementChild.appendChild(newContent);
-  slider2.firstElementChild.removeChild(slider2.firstElementChild.firstElementChild);
+  var firstLi = slider2.firstElementChild.firstElementChild;
+  slider2.firstElementChild.appendChild(firstLi);
 }
 
 function scrollLeftThirdSlider() {
-  var newContent = slider3.firstElementChild.lastElementChild.cloneNode(true);
-  slider3.firstElementChild.insertBefore(newContent, slider3.firstElementChild.firstElementChild);
-  slider3.firstElementChild.removeChild(slider3.firstElementChild.lastElementChild);
+  var lastLi = slider3.firstElementChild.lastElementChild;
+  slider3.firstElementChild.insertBefore(lastLi, slider3.firstElementChild.firstElementChild);
 }
 
 function scrollRightThirdSlider() {
-  var newContent = slider3.firstElementChild.firstElementChild.cloneNode(true);
-  slider3.firstElementChild.appendChild(newContent);
-  slider3.firstElementChild.removeChild(slider3.firstElementChild.firstElementChild);
+  var firstLi = slider3.firstElementChild.firstElementChild;
+  slider3.firstElementChild.appendChild(firstLi);
 }
 
 function scrollLeftFourthSlider() {
-  var newContent = slider4.firstElementChild.lastElementChild.cloneNode(true);
-  slider4.firstElementChild.insertBefore(newContent, slider4.firstElementChild.firstElementChild);
-  slider4.firstElementChild.removeChild(slider4.firstElementChild.lastElementChild);
+  var lastLi = slider4.firstElementChild.lastElementChild;
+  slider4.firstElementChild.insertBefore(lastLi, slider4.firstElementChild.firstElementChild);
 }
 
 function scrollRightFourthSlider() {
-  var newContent = slider4.firstElementChild.firstElementChild.cloneNode(true);
-  slider4.firstElementChild.appendChild(newContent);
-  slider4.firstElementChild.removeChild(slider4.firstElementChild.firstElementChild);
+  var firstLi = slider4.firstElementChild.firstElementChild;
+  slider4.firstElementChild.appendChild(firstLi);
 }
 
 rightBtn.addEventListener('click', scrollRightFirstSlider);
@@ -100,15 +99,50 @@ getBestMovie();
         for (var i = 0; i < 7; i++) {
           li = document.createElement("li");
           button = document.createElement("button");
+          var id = data.results[i].id;
           img = document.createElement("img");
+          img.setAttribute("id", id)
           img.src = data.results[i].image_url;
           li.appendChild(button);
           button.appendChild(img);
           slider1.firstElementChild.appendChild(li);
-          slider1.firstElementChild.removeChild(slider1.firstElementChild.firstElementChild);
+          var btn = document.getElementById(id);
+          btn.addEventListener("click", function(id) {
+            console.log("hello click");
+            modal.style.display = "block";
+            fetch("http://localhost:8000/api/v1/titles/" + id.target.id)  
+              .then(response => response.json())
+              .then(data => {
+                var imgModal = document.getElementById("modal_picture");
+                imgModal.src = data.image_url;
+                var title = document.getElementById("modal_title");
+                title.innerHTML = data.title;
+                var genre = document.getElementById("modal_genre");
+                genre.innerHTML = data.genres;
+                var year = document.getElementById("modal_year");
+                year.innerHTML = data.date_published;
+                var rate = document.getElementById("modal_rate");
+                rate.innerHTML = data.rated;
+                var imdbScore = document.getElementById("modal_imdb_score");
+                imdbScore.innerHTML = data.imdb_score;
+                var director = document.getElementById("modal_director");
+                director.innerHTML = data.director;
+                var actors = document.getElementById("modal_actors");
+                actors.innerHTML = data.actors;
+                var duration = document.getElementById("modal_duration");
+                duration.innerHTML = data.duration;
+                var country = document.getElementById("modal_country");
+                country.innerHTML = data.country;
+                var worldwideGrossIncome = document.getElementById("modal_worldwide_gross_income");
+                worldwideGrossIncome.innerHTML = data.worldwide_gross_income;
+                var description = document.getElementById("modal_description");
+                description.innerHTML = data.description;
+              });
+          });
         }
       });
-    }
+  }
+
 
 getBestMovies();
 
@@ -172,26 +206,61 @@ getBestActionMovies();
 
 // // FUNCTION FOR MODALS TO OPEN AND CLOSE
 
-// console.log(buttons);
-// function log() {
-//   console.log("hello");
+// Get the modal
+var modal = document.getElementById("myModal");
+
+function displayModal() {
+  console.log("hello");
+  // var modalContent = document.getElementById("modal-content");
+  // modal.style.display = "block";
+  // fetch("http://localhost:8000/api/v1/titles/" + id)
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     var imgModal = document.getElementById("modal_picture");
+  //     imgModal.src = data.image_url;
+  //     console.log(data);
+  //     modalContent.appendChild(img);
+  //     var title = document.getElementById("modal_title");
+  //     title.innerHTML = data.title;
+  //     var genre = document.getElementById("modal_genre");
+  //     genre.innerHTML = data.genres;
+  //     var year = document.getElementById("modal_year");
+  //     year.innerHTML = data.date_published;
+  //     var rate = document.getElementById("modal_rate");
+  //     rate.innerHTML = data.rated;
+  //     var imdbScore = document.getElementById("modal_imdb_score");
+  //     imdbScore.innerHTML = data.imdb_score;
+  //     var director = document.getElementById("modal_director");
+  //     director.innerHTML = data.director;
+  //     var actors = document.getElementById("modal_actors");
+  //     actors.innerHTML = data.actors;
+  //     var duration = document.getElementById("modal_duration");
+  //     duration.innerHTML = data.duration;
+  //     var country = document.getElementById("modal_country");
+  //     country.innerHTML = data.country;
+  //     var worldwideGrossIncome = document.getElementById("modal_worldwide_gross_income");
+  //     worldwideGrossIncome.innerHTML = data.worldwide_gross_income;
+  //     var description = document.getElementById("modal_description");
+  //     description.innerHTML = data.description;
+  //   });
+}
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+// btn.onclick = function() {
+//   modal.style.display = "block";
 // }
 
-// ---
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
 
-// function findButtons() {
-//     getBestMovies();
-//     getBestScienceFictionMovies();
-//     getBestAdventureMovies();
-//     getBestActionMovies();
-//   var buttons = document.querySelectorAll("button");
-//   for (var i = 0; i < buttons.length; i++) {
-//     buttons[i].addEventListener("click", log);
-//   }
-// }
-
-// findButtons();
-// ---
-// for (var i = 0; i < buttons.length; i++) {
-//   buttons[i].addEventListener("click", log);
-// }
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}

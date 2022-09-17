@@ -5,6 +5,8 @@ var slider1 = document.querySelector('.slider1');
 var slider2 = document.querySelector('.slider2');
 var slider3 = document.querySelector('.slider3');
 var slider4 = document.querySelector('.slider4');
+var listOfSliders = [slider2, slider3, slider4]
+var listOfCategories = ['Sci-Fi', 'Adventure', 'Action']
 var li = slider.querySelectorAll('ul li');
 var leftBtnAll = document.querySelectorAll('button.left');
 var rightBtnAll = document.querySelectorAll('button.right');
@@ -70,24 +72,15 @@ leftBtn4.addEventListener('click', scrollLeftFourthSlider);
 
 // FUNCTION TO GET ALL IMAGE FROM CUSTOM API
 
-function getBestMovie() {
-  fetch("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score")
-    .then(response => response.json())
-    .then(data => {
-      button = document.createElement("button");
-      var img = document.getElementById("best_movie_picture");
-      img.src = data.results[0].image_url;
-      best_movie.appendChild(img);
-    });
-  }
-  
-getBestMovie();
-
   function getBestMovies() {
-    fetch("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&page_size=7")
+    fetch("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&page_size=8")
       .then(response => response.json())
       .then(data => {
-        for (var i = 0; i < 7; i++) {
+        button = document.createElement("button");
+        var img = document.getElementById("best_movie_picture");
+        img.src = data.results[0].image_url;
+        best_movie.appendChild(img);
+        for (var i = 1; i < 8; i++) {
           li = document.createElement("li");
           button = document.createElement("button");
           var id = data.results[i].id;
@@ -134,12 +127,12 @@ getBestMovie();
       });
   }
 
-
-
 getBestMovies();
 
-function getBestScienceFictionMovies() {
-  fetch("http://localhost:8000/api/v1/titles/?genre=Sci-Fi&sort_by=-imdb_score&page_size=7")
+function GetBestMoviesForNextSliders() {}
+  listOfCategories.forEach((category, index) => {
+    const sliderNumber = listOfSliders[index];
+    fetch("http://localhost:8000/api/v1/titles/?genre=" + category + "&sort_by=-imdb_score&page_size=7")
     .then(response => response.json())
     .then(data => {
       for (var i = 0; i < 7; i++) {
@@ -151,7 +144,7 @@ function getBestScienceFictionMovies() {
         img.src = data.results[i].image_url;
         li.appendChild(button);
         button.appendChild(img);
-        slider2.firstElementChild.appendChild(li);
+        sliderNumber.firstElementChild.appendChild(li);
         var btn = document.getElementById(id);
         btn.addEventListener("click", function(id) {
           console.log("hello click");
@@ -162,7 +155,7 @@ function getBestScienceFictionMovies() {
               var imgModal = document.getElementById("modal_picture");
               imgModal.src = data.image_url;
               var title = document.getElementById("modal_title");
-              title.innerHTML = data.title;
+              title.innerHTML += data.title;
               var genre = document.getElementById("modal_genre");
               genre.innerHTML = data.genres;
               var year = document.getElementById("modal_year");
@@ -187,115 +180,12 @@ function getBestScienceFictionMovies() {
         });
       }
     });
-}
+  });
 
-getBestScienceFictionMovies();
+GetBestMoviesForNextSliders();
 
-function getBestAdventureMovies() {
-  fetch("http://localhost:8000/api/v1/titles/?genre=Adventure&sort_by=-imdb_score&page_size=7")
-    .then(response => response.json())
-    .then(data => {
-      for (var i = 0; i < 7; i++) {
-        li = document.createElement("li");
-        button = document.createElement("button");
-        var id = data.results[i].id;
-        img = document.createElement("img");
-        img.setAttribute("id", id)
-        img.src = data.results[i].image_url;
-        li.appendChild(button);
-        button.appendChild(img);
-        slider3.firstElementChild.appendChild(li);
-        var btn = document.getElementById(id);
-        btn.addEventListener("click", function(id) {
-          console.log("hello click");
-          modal.style.display = "block";
-          fetch("http://localhost:8000/api/v1/titles/" + id.target.id)  
-            .then(response => response.json())
-            .then(data => {
-              var imgModal = document.getElementById("modal_picture");
-              imgModal.src = data.image_url;
-              var title = document.getElementById("modal_title");
-              title.innerHTML = data.title;
-              var genre = document.getElementById("modal_genre");
-              genre.innerHTML = data.genres;
-              var year = document.getElementById("modal_year");
-              year.innerHTML = data.date_published;
-              var rate = document.getElementById("modal_rate");
-              rate.innerHTML = data.rated;
-              var imdbScore = document.getElementById("modal_imdb_score");
-              imdbScore.innerHTML = data.imdb_score;
-              var director = document.getElementById("modal_director");
-              director.innerHTML = data.director;
-              var actors = document.getElementById("modal_actors");
-              actors.innerHTML = data.actors;
-              var duration = document.getElementById("modal_duration");
-              duration.innerHTML = data.duration;
-              var country = document.getElementById("modal_country");
-              country.innerHTML = data.country;
-              var worldwideGrossIncome = document.getElementById("modal_worldwide_gross_income");
-              worldwideGrossIncome.innerHTML = data.worldwide_gross_income;
-              var description = document.getElementById("modal_description");
-              description.innerHTML = data.description;
-            });
-        });
-      }
-    });
-}
 
-getBestAdventureMovies();
-
-function getBestActionMovies() {
-  fetch("http://localhost:8000/api/v1/titles/?genre=Action&sort_by=-imdb_score&page_size=7")
-    .then(response => response.json())
-    .then(data => {
-      for (var i = 0; i < 7; i++) {
-        li = document.createElement("li");
-        button = document.createElement("button");
-        var id = data.results[i].id;
-        img = document.createElement("img");
-        img.setAttribute("id", id)
-        img.src = data.results[i].image_url;
-        li.appendChild(button);
-        button.appendChild(img);
-        slider4.firstElementChild.appendChild(li);
-        var btn = document.getElementById(id);
-        btn.addEventListener("click", function(id) {
-          console.log("hello click");
-          modal.style.display = "block";
-          fetch("http://localhost:8000/api/v1/titles/" + id.target.id)  
-            .then(response => response.json())
-            .then(data => {
-              var imgModal = document.getElementById("modal_picture");
-              imgModal.src = data.image_url;
-              var title = document.getElementById("modal_title");
-              title.innerHTML = data.title;
-              var genre = document.getElementById("modal_genre");
-              genre.innerHTML = data.genres;
-              var year = document.getElementById("modal_year");
-              year.innerHTML = data.date_published;
-              var rate = document.getElementById("modal_rate");
-              rate.innerHTML = data.rated;
-              var imdbScore = document.getElementById("modal_imdb_score");
-              imdbScore.innerHTML = data.imdb_score;
-              var director = document.getElementById("modal_director");
-              director.innerHTML = data.director;
-              var actors = document.getElementById("modal_actors");
-              actors.innerHTML = data.actors;
-              var duration = document.getElementById("modal_duration");
-              duration.innerHTML = data.duration;
-              var country = document.getElementById("modal_country");
-              country.innerHTML = data.country;
-              var worldwideGrossIncome = document.getElementById("modal_worldwide_gross_income");
-              worldwideGrossIncome.innerHTML = data.worldwide_gross_income;
-              var description = document.getElementById("modal_description");
-              description.innerHTML = data.description;
-            });
-        });
-      }
-    });
-}
-
-getBestActionMovies();
+// getBestActionMovies();
 
 // FUNCTION FOR MODALS TO OPEN AND CLOSE
 

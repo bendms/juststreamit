@@ -18,7 +18,7 @@ nav ul {
 }
 
 nav li {
-    margin-right: 40px;
+    margin-right: 180px;
 
 }
 
@@ -66,16 +66,21 @@ h3{
 .slider {
     position: relative;
     margin: auto;
-    padding: 20px 13px;
+    padding: 45px 35px;
     border: 1px solid #ccc;
     border-radius: 15px;
     width: 85%;
     overflow-x: hidden;
 }
 
+ul {
+    padding-inline-start: 0;
+}
+
 .slider ul li {
     display: inline-block;
     margin: 0 10px;
+
 }
 .slider ul li img {
     height: 400px;
@@ -88,7 +93,11 @@ h3{
 }
 
 .slide_list {
-    width: max-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 20px;
 }
 
 .arrow {
@@ -109,25 +118,6 @@ button:hover{
     cursor: pointer;
 }
 
-  
-/* .caroussel{
-
-    background-color: #8786c5;
-    padding: 20px 13px;
-    border: 1px solid #CCCCCC;
-    border-radius: 15px;
-    overflow-x: hidden;
-}
-
-.slider {
-    display: inline-block;
-}
-.item {
-    width : 150px;
-    height : 150px;
-    text-align: center;
-
-} */
 #best_movie{
     display: flex;
     justify-content: space-around;
@@ -146,35 +136,6 @@ img {
 .item{
     font-size: 2em;
 }
-
-
-/* li {
-    display: inline-block;
-    list-style-type: none;
-    margin: 0;
-    padding: 15px;
-
-} */
-
-
-/* .modal {
-    background-color: hwb(0 0% 100% / 0.792);
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 100;
-    display:flex
-}
-
-.modal-content {
-    background-color: #ffffff;
-    max-width: 90vw;
-    margin: auto;
-    flex: 1;
-    height: 900px;
-} */
 
 .modal {
     display: none; /* Hidden by default */
@@ -213,20 +174,6 @@ img {
     border: #ffffff 3px solid;
   }
 
-  /* #modal_title{
-    text-align: center;
-    color: #ffffff;
-    font-size: 2em;
-  }
-
-
-  #modal_genre, #modal_year, #modal_rate, #modal_imdb_score, #modal_director, #modal_actors, #modal_duration, #modal_country, #modal_worldwide_gross, #modal_description{
-    text-align: center;
-    color: #ffffff;
-    font-size: 1.2em;
-  } */
-
-  /* The Close Button */
   .close {
     color: rgb(0, 0, 0);
     float: right;

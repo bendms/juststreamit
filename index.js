@@ -17,16 +17,7 @@ var rightBtn3 = slider3.querySelector('button.right');
 var leftBtn4 = slider4.querySelector('button.left');
 var rightBtn4 = slider4.querySelector('button.right');
 
-var value = li.length;
-
-
 // FUNCTIONS FOR SCROLLING SLIDERS
-
-// function scrollRightFirstSlider() {
-//   var newContent = slider.firstElementChild.firstElementChild.firstElementChild.cloneNode(true);
-//   slider.firstElementChild.firstElementChild.appendChild(newContent);
-//   slider.firstElementChild.firstElementChild.removeChild(slider.firstElementChild.firstElementChild.firstElementChild);
-// }
 
 function scrollLeftFirstSlider() {
   var lastLi = slider1.firstElementChild.lastElementChild;
@@ -306,18 +297,13 @@ function getBestActionMovies() {
 
 getBestActionMovies();
 
-// // FUNCTION FOR MODALS TO OPEN AND CLOSE
+// FUNCTION FOR MODALS TO OPEN AND CLOSE
 
 // Get the modal
 var modal = document.getElementById("myModal");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on the button, open the modal
-// btn.onclick = function() {
-//   modal.style.display = "block";
-// }
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {

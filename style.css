@@ -176,15 +176,16 @@ img {
   }
   
 table {
-    margin-top: 75px;
+    margin-top: 75px;;
     border-spacing: 10px;
     width: 100%;
 }
 
 
 td {
-    padding: 10px;
+    padding: 15px 300px 15px 300px;
     text-align: center;
+    width: 75% ;
 }
 
 

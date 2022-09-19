@@ -6,7 +6,7 @@ var slider2 = document.querySelector('.slider2');
 var slider3 = document.querySelector('.slider3');
 var slider4 = document.querySelector('.slider4');
 var listOfSliders = [slider2, slider3, slider4]
-var listOfCategories = ['Sci-Fi', 'Adventure', 'Action']
+var listOfCategories = ['Sci-Fi', 'Romance', 'Music']
 var li = slider.querySelectorAll('ul li');
 var leftBtnAll = document.querySelectorAll('button.left');
 var rightBtnAll = document.querySelectorAll('button.right');
@@ -77,9 +77,78 @@ leftBtn4.addEventListener('click', scrollLeftFourthSlider);
       .then(response => response.json())
       .then(data => {
         button = document.createElement("button");
+        var id = data.results[0].id;
         var img = document.getElementById("best_movie_picture");
+        img.setAttribute("id", id)
         img.src = data.results[0].image_url;
-        best_movie.appendChild(img);
+        button.appendChild(img);
+        best_movie.appendChild(button);
+        var btn = document.getElementById(id);
+        button.addEventListener("click", function(id) {
+        modal.style.display = "block";
+        fetch("http://localhost:8000/api/v1/titles/" + id.target.id)  
+          .then(response => response.json())
+          .then(data => {
+            var imgModal = document.getElementById("modal_picture");
+            imgModal.src = data.image_url;
+            var title = document.getElementById("modal_title");
+            title.innerHTML = data.title;
+            var genre = document.getElementById("modal_genre");
+            genre.innerHTML = data.genres;
+            var year = document.getElementById("modal_year");
+            year.innerHTML = data.date_published;
+            var rate = document.getElementById("modal_rate");
+            rate.innerHTML = data.rated;
+            var imdbScore = document.getElementById("modal_imdb_score");
+            imdbScore.innerHTML = data.imdb_score;
+            var director = document.getElementById("modal_director");
+            director.innerHTML = data.directors;
+            var actors = document.getElementById("modal_actors");
+            actors.innerHTML = data.actors;
+            var duration = document.getElementById("modal_duration");
+            duration.innerHTML = data.duration + " min";
+            var country = document.getElementById("modal_country");
+            country.innerHTML = data.countries;
+            var worldwideGrossIncome = document.getElementById("modal_worldwide_gross_income");
+            worldwideGrossIncome.innerHTML = data.worldwide_gross_income + " $";
+            var description = document.getElementById("modal_description");
+            description.innerHTML = data.description;
+            if (title.textContent == "undefined" || title.textContent == "" || title.textContent == "null") {
+              document.getElementById("th_title").style.display = "none";
+              document.getElementById("modal_title").style.display = "none";
+            } if (genre.textContent == "undefined" || genre.textContent == "" || genre.textContent == "null") {
+              document.getElementById("th_genre").style.display = "none";
+              document.getElementById("modal_genre").style.display = "none";
+            } if (year.textContent == "undefined" || year.textContent == "" || year.textContent == "null") {
+              document.getElementById("th_year").style.display = "none";
+              document.getElementById("modal_year").style.display = "none";
+            } if (rate.textContent == "Not rated or unkown rating" || rate.textContent == "" || rate.textContent == "null") {
+              document.getElementById("th_rate").style.display = "none";
+              document.getElementById("modal_rate").style.display = "none";
+            } if (imdbScore.textContent == "undefined" || imdbScore.textContent == "" || imdbScore.textContent == "null") {
+              document.getElementById("th_imdb_score").style.display = "none";
+              document.getElementById("modal_imdb_score").style.display = "none";
+            } if (director.textContent == "undefined" || director.textContent == "" || director.textContent == "null") {
+              document.getElementById("th_director").style.display = "none";
+              document.getElementById("modal_director").style.display = "none";
+            } if (actors.textContent == "undefined" || actors.textContent == "" || actors.textContent == "null") {
+              document.getElementById("th_actors").style.display = "none";
+              document.getElementById("modal_actors").style.display = "none";
+            } if (duration.textContent == "undefined" || duration.textContent == "" || duration.textContent == "null") {
+              document.getElementById("th_duration").style.display = "none";
+              document.getElementById("modal_duration").style.display = "none";
+            } if (country.textContent == "undefined" || country.textContent == "" || country.textContent == "null") {
+              document.getElementById("th_country").style.display = "none";
+              document.getElementById("modal_country").style.display = "none";
+            } if (worldwideGrossIncome.textContent == "undefined " || worldwideGrossIncome.textContent == "" || worldwideGrossIncome.textContent == "null $") {
+              document.getElementById("th_worldwide_gross_income").style.display = "none";
+              document.getElementById("modal_worldwide_gross_income").style.display = "none";
+            } if (description.textContent == "undefined" || description.textContent == "" || description.textContent == "null" || description.textContent == "Add a Plot »") {
+              document.getElementById("th_description").style.display = "none";
+              document.getElementById("modal_description").style.display = "none";
+          }
+        })
+      });
         for (var i = 1; i < 8; i++) {
           li = document.createElement("li");
           button = document.createElement("button");
@@ -92,40 +161,74 @@ leftBtn4.addEventListener('click', scrollLeftFourthSlider);
           slider1.firstElementChild.appendChild(li);
           var btn = document.getElementById(id);
           btn.addEventListener("click", function(id) {
-            console.log("hello click");
-            modal.style.display = "block";
-            fetch("http://localhost:8000/api/v1/titles/" + id.target.id)  
-              .then(response => response.json())
-              .then(data => {
-                var imgModal = document.getElementById("modal_picture");
-                imgModal.src = data.image_url;
-                var title = document.getElementById("modal_title");
-                title.innerHTML = data.title;
-                var genre = document.getElementById("modal_genre");
-                genre.innerHTML = data.genres;
-                var year = document.getElementById("modal_year");
-                year.innerHTML = data.date_published;
-                var rate = document.getElementById("modal_rate");
-                rate.innerHTML = data.rated;
-                var imdbScore = document.getElementById("modal_imdb_score");
-                imdbScore.innerHTML = data.imdb_score;
-                var director = document.getElementById("modal_director");
-                director.innerHTML = data.director;
-                var actors = document.getElementById("modal_actors");
-                actors.innerHTML = data.actors;
-                var duration = document.getElementById("modal_duration");
-                duration.innerHTML = data.duration;
-                var country = document.getElementById("modal_country");
-                country.innerHTML = data.country;
-                var worldwideGrossIncome = document.getElementById("modal_worldwide_gross_income");
-                worldwideGrossIncome.innerHTML = data.worldwide_gross_income;
-                var description = document.getElementById("modal_description");
-                description.innerHTML = data.description;
-              });
+          console.log("hello click");
+          modal.style.display = "block";
+          fetch("http://localhost:8000/api/v1/titles/" + id.target.id)  
+            .then(response => response.json())
+            .then(data => {
+              var imgModal = document.getElementById("modal_picture");
+              imgModal.src = data.image_url;
+              var title = document.getElementById("modal_title");
+              title.innerHTML = data.title;
+              var genre = document.getElementById("modal_genre");
+              genre.innerHTML = data.genres;
+              var year = document.getElementById("modal_year");
+              year.innerHTML = data.date_published;
+              var rate = document.getElementById("modal_rate");
+              rate.innerHTML = data.rated;
+              var imdbScore = document.getElementById("modal_imdb_score");
+              imdbScore.innerHTML = data.imdb_score;
+              var director = document.getElementById("modal_director");
+              director.innerHTML = data.directors;
+              var actors = document.getElementById("modal_actors");
+              actors.innerHTML = data.actors;
+              var duration = document.getElementById("modal_duration");
+              duration.innerHTML = data.duration + " min";
+              var country = document.getElementById("modal_country");
+              country.innerHTML = data.countries;
+              var worldwideGrossIncome = document.getElementById("modal_worldwide_gross_income");
+              worldwideGrossIncome.innerHTML = data.worldwide_gross_income + " $";
+              var description = document.getElementById("modal_description");
+              description.innerHTML = data.description;
+              if (title.textContent == "undefined" || title.textContent == "" || title.textContent == "null") {
+                document.getElementById("th_title").style.display = "none";
+                document.getElementById("modal_title").style.display = "none";
+              } if (genre.textContent == "undefined" || genre.textContent == "" || genre.textContent == "null") {
+                document.getElementById("th_genre").style.display = "none";
+                document.getElementById("modal_genre").style.display = "none";
+              } if (year.textContent == "undefined" || year.textContent == "" || year.textContent == "null") {
+                document.getElementById("th_year").style.display = "none";
+                document.getElementById("modal_year").style.display = "none";
+              } if (rate.textContent == "Not rated or unkown rating" || rate.textContent == "" || rate.textContent == "null") {
+                document.getElementById("th_rate").style.display = "none";
+                document.getElementById("modal_rate").style.display = "none";
+              } if (imdbScore.textContent == "undefined" || imdbScore.textContent == "" || imdbScore.textContent == "null") {
+                document.getElementById("th_imdb_score").style.display = "none";
+                document.getElementById("modal_imdb_score").style.display = "none";
+              } if (director.textContent == "undefined" || director.textContent == "" || director.textContent == "null") {
+                document.getElementById("th_director").style.display = "none";
+                document.getElementById("modal_director").style.display = "none";
+              } if (actors.textContent == "undefined" || actors.textContent == "" || actors.textContent == "null") {
+                document.getElementById("th_actors").style.display = "none";
+                document.getElementById("modal_actors").style.display = "none";
+              } if (duration.textContent == "undefined" || duration.textContent == "" || duration.textContent == "null") {
+                document.getElementById("th_duration").style.display = "none";
+                document.getElementById("modal_duration").style.display = "none";
+              } if (country.textContent == "undefined" || country.textContent == "" || country.textContent == "null") {
+                document.getElementById("th_country").style.display = "none";
+                document.getElementById("modal_country").style.display = "none";
+              } if (worldwideGrossIncome.textContent == "undefined " || worldwideGrossIncome.textContent == "" || worldwideGrossIncome.textContent == "null $") {
+                document.getElementById("th_worldwide_gross_income").style.display = "none";
+                document.getElementById("modal_worldwide_gross_income").style.display = "none";
+              } if (description.textContent == "undefined" || description.textContent == "" || description.textContent == "null" || description.textContent == "Add a Plot »") {
+                document.getElementById("th_description").style.display = "none";
+                document.getElementById("modal_description").style.display = "none";
+              }
+            });
           });
         }
       });
-  }
+    }
 
 getBestMovies();
 
@@ -155,7 +258,7 @@ function GetBestMoviesForNextSliders() {}
               var imgModal = document.getElementById("modal_picture");
               imgModal.src = data.image_url;
               var title = document.getElementById("modal_title");
-              title.innerHTML += data.title;
+              title.innerHTML = data.title;
               var genre = document.getElementById("modal_genre");
               genre.innerHTML = data.genres;
               var year = document.getElementById("modal_year");
@@ -165,27 +268,58 @@ function GetBestMoviesForNextSliders() {}
               var imdbScore = document.getElementById("modal_imdb_score");
               imdbScore.innerHTML = data.imdb_score;
               var director = document.getElementById("modal_director");
-              director.innerHTML = data.director;
+              director.innerHTML = data.directors;
               var actors = document.getElementById("modal_actors");
               actors.innerHTML = data.actors;
               var duration = document.getElementById("modal_duration");
-              duration.innerHTML = data.duration;
+              duration.innerHTML = data.duration + " min";
               var country = document.getElementById("modal_country");
-              country.innerHTML = data.country;
+              country.innerHTML = data.countries;
               var worldwideGrossIncome = document.getElementById("modal_worldwide_gross_income");
-              worldwideGrossIncome.innerHTML = data.worldwide_gross_income;
+              worldwideGrossIncome.innerHTML = data.worldwide_gross_income + " $";
               var description = document.getElementById("modal_description");
               description.innerHTML = data.description;
-            });
-        });
+              if (title.textContent == "undefined" || title.textContent == "" || title.textContent == "null") {
+                document.getElementById("th_title").style.display = "none";
+                document.getElementById("modal_title").style.display = "none";
+              } if (genre.textContent == "undefined" || genre.textContent == "" || genre.textContent == "null") {
+                document.getElementById("th_genre").style.display = "none";
+                document.getElementById("modal_genre").style.display = "none";
+              } if (year.textContent == "undefined" || year.textContent == "" || year.textContent == "null") {
+                document.getElementById("th_year").style.display = "none";
+                document.getElementById("modal_year").style.display = "none";
+              } if (rate.textContent == "Not rated or unkown rating" || rate.textContent == "" || rate.textContent == "null") {
+                document.getElementById("th_rate").style.display = "none";
+                document.getElementById("modal_rate").style.display = "none";
+              } if (imdbScore.textContent == "undefined" || imdbScore.textContent == "" || imdbScore.textContent == "null") {
+                document.getElementById("th_imdb_score").style.display = "none";
+                document.getElementById("modal_imdb_score").style.display = "none";
+              } if (director.textContent == "undefined" || director.textContent == "" || director.textContent == "null") {
+                document.getElementById("th_director").style.display = "none";
+                document.getElementById("modal_director").style.display = "none";
+              } if (actors.textContent == "undefined" || actors.textContent == "" || actors.textContent == "null") {
+                document.getElementById("th_actors").style.display = "none";
+                document.getElementById("modal_actors").style.display = "none";
+              } if (duration.textContent == "undefined" || duration.textContent == "" || duration.textContent == "null") {
+                document.getElementById("th_duration").style.display = "none";
+                document.getElementById("modal_duration").style.display = "none";
+              } if (country.textContent == "undefined" || country.textContent == "" || country.textContent == "null") {
+                document.getElementById("th_country").style.display = "none";
+                document.getElementById("modal_country").style.display = "none";
+              } if (worldwideGrossIncome.textContent == "undefined " || worldwideGrossIncome.textContent == "" || worldwideGrossIncome.textContent == "null $") {
+                document.getElementById("th_worldwide_gross_income").style.display = "none";
+                document.getElementById("modal_worldwide_gross_income").style.display = "none";
+              } if (description.textContent == "undefined" || description.textContent == "" || description.textContent == "null" || description.textContent == "Add a Plot »") {
+                document.getElementById("th_description").style.display = "none";
+                document.getElementById("modal_description").style.display = "none";
+              }
+            })
+        })
       }
-    });
-  });
+    })
+  })
 
 GetBestMoviesForNextSliders();
-
-
-// getBestActionMovies();
 
 // FUNCTION FOR MODALS TO OPEN AND CLOSE
 

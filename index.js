@@ -331,12 +331,38 @@ var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
-  modal.style.display = "none";
+  displayAllDataInModal();
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
   if (event.target == modal) {
-    modal.style.display = "none";
+    displayAllDataInModal();
   }
+}
+
+function displayAllDataInModal() {
+  modal.style.display = "none";
+  document.getElementById("th_title").style.display = "table-cell";
+  document.getElementById("modal_title").style.display = "table-cell";
+  document.getElementById("th_genre").style.display = "table-cell";
+  document.getElementById("modal_genre").style.display = "table-cell";
+  document.getElementById("th_year").style.display = "table-cell";
+  document.getElementById("modal_year").style.display = "table-cell";
+  document.getElementById("th_rate").style.display = "table-cell";
+  document.getElementById("modal_rate").style.display = "table-cell";
+  document.getElementById("th_imdb_score").style.display = "table-cell";
+  document.getElementById("modal_imdb_score").style.display = "table-cell";
+  document.getElementById("th_director").style.display = "table-cell";
+  document.getElementById("modal_director").style.display = "table-cell";
+  document.getElementById("th_actors").style.display = "table-cell";
+  document.getElementById("modal_actors").style.display = "table-cell";
+  document.getElementById("th_duration").style.display = "table-cell";
+  document.getElementById("modal_duration").style.display = "table-cell";
+  document.getElementById("th_country").style.display = "table-cell";
+  document.getElementById("modal_country").style.display = "table-cell";
+  document.getElementById("th_worldwide_gross_income").style.display = "table-cell";
+  document.getElementById("modal_worldwide_gross_income").style.display = "table-cell";
+  document.getElementById("th_description").style.display = "table-cell";
+  document.getElementById("modal_description").style.display = "table-cell";
 }

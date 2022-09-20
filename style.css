@@ -50,7 +50,7 @@ h1, h2{
     font-size: 3em;
     font-weight: bold;
     margin: 0;
-    padding: 50;
+    padding: 50px;
     text-align: center;
 }
 
@@ -58,7 +58,7 @@ h3{
     font-weight: bold;
     line-height: 24px;
     margin: 40px;
-    padding: 50;
+    padding: 50px;
     text-align: center;
     font-size: 2em;
 }
@@ -124,8 +124,34 @@ button:hover{
 
 .best_movie{
     display: flex;
+    flex-direction: row-reverse;
     justify-content: space-around;
     margin: 50px;
+}
+
+.best_movie_text{
+    position: relative;
+}
+
+#best_movie_title{
+    font-size: 5em;
+}
+
+.best_movie_button {
+    font-size: 2em;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #8786c5;
+    background-color: #8786c5;
+    color: #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 45%;
+}
+
+#best_movie_description{
+    font-size: 2em;
+    margin-top: 125px;
 }
 
 img {

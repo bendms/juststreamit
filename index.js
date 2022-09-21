@@ -94,6 +94,10 @@ leftBtn4.addEventListener('click', scrollLeftFourthSlider);
             best_movie_button.innerHTML = "Voir plus";
             best_movie_button.setAttribute("class", "best_movie_button");
             best_movie_button.setAttribute("id", data.id);
+            best_movie_button.addEventListener("click", function() {
+              modal.style.display = "block";
+              createModalWindow(data.id);
+            });
           })
         best_movie_description.innerHTML = data.results.description;
         img.setAttribute("id", id)
@@ -102,6 +106,7 @@ leftBtn4.addEventListener('click', scrollLeftFourthSlider);
         best_movie.appendChild(button);
         console.log(best_movie_button);
         var btn = document.getElementById(id);
+        // var btn = document.getElementsByName("button-modal");
         btn.addEventListener("click", function(id) {
         modal.style.display = "block";
         createModalWindow(id);
@@ -180,32 +185,37 @@ window.onclick = function(event) {
 
 function displayAllDataInModal() {
   modal.style.display = "none";
-  document.getElementById("th_title").style.display = "table-cell";
-  document.getElementById("modal_title").style.display = "table-cell";
-  document.getElementById("th_genre").style.display = "table-cell";
-  document.getElementById("modal_genre").style.display = "table-cell";
-  document.getElementById("th_year").style.display = "table-cell";
-  document.getElementById("modal_year").style.display = "table-cell";
-  document.getElementById("th_rate").style.display = "table-cell";
-  document.getElementById("modal_rate").style.display = "table-cell";
-  document.getElementById("th_imdb_score").style.display = "table-cell";
-  document.getElementById("modal_imdb_score").style.display = "table-cell";
-  document.getElementById("th_director").style.display = "table-cell";
-  document.getElementById("modal_director").style.display = "table-cell";
-  document.getElementById("th_actors").style.display = "table-cell";
-  document.getElementById("modal_actors").style.display = "table-cell";
-  document.getElementById("th_duration").style.display = "table-cell";
-  document.getElementById("modal_duration").style.display = "table-cell";
-  document.getElementById("th_country").style.display = "table-cell";
-  document.getElementById("modal_country").style.display = "table-cell";
-  document.getElementById("th_worldwide_gross_income").style.display = "table-cell";
-  document.getElementById("modal_worldwide_gross_income").style.display = "table-cell";
-  document.getElementById("th_description").style.display = "table-cell";
-  document.getElementById("modal_description").style.display = "table-cell";
+//   document.getElementById("th_title").style.display = "table-cell";
+//   document.getElementById("modal_title").style.display = "table-cell";
+//   document.getElementById("th_genre").style.display = "table-cell";
+//   document.getElementById("modal_genre").style.display = "table-cell";
+//   document.getElementById("th_year").style.display = "table-cell";
+//   document.getElementById("modal_year").style.display = "table-cell";
+//   document.getElementById("th_rate").style.display = "table-cell";
+//   document.getElementById("modal_rate").style.display = "table-cell";
+//   document.getElementById("th_imdb_score").style.display = "table-cell";
+//   document.getElementById("modal_imdb_score").style.display = "table-cell";
+//   document.getElementById("th_director").style.display = "table-cell";
+//   document.getElementById("modal_director").style.display = "table-cell";
+//   document.getElementById("th_actors").style.display = "table-cell";
+//   document.getElementById("modal_actors").style.display = "table-cell";
+//   document.getElementById("th_duration").style.display = "table-cell";
+//   document.getElementById("modal_duration").style.display = "table-cell";
+//   document.getElementById("th_country").style.display = "table-cell";
+//   document.getElementById("modal_country").style.display = "table-cell";
+//   document.getElementById("th_worldwide_gross_income").style.display = "table-cell";
+//   document.getElementById("modal_worldwide_gross_income").style.display = "table-cell";
+//   document.getElementById("th_description").style.display = "table-cell";
+//   document.getElementById("modal_description").style.display = "table-cell";
 }
 
 function createModalWindow(id) {
-  fetch("http://localhost:8000/api/v1/titles/" + id.target.id)  
+  if (typeof(id) === "object") {
+    id = id.target.id;
+  }
+  console.log(id);
+  console.log(typeof(id));
+  fetch("http://localhost:8000/api/v1/titles/" + id)  
     .then(response => response.json())
     .then(data => {
       var imgModal = document.getElementById("modal_picture");

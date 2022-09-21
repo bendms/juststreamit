@@ -1,14 +1,14 @@
-var best_movie = document.querySelector(".best_movie")
-var best_movie_text = document.querySelector(".best_movie_text")
-var best_movie_button = document.querySelector(".best_movie_button")
+var best_movie = document.querySelector(".best_movie");
+var best_movie_text = document.querySelector(".best_movie_text");
+var best_movie_button = document.querySelector(".best_movie_button");
 var slider = document.querySelector('.slider');
 var sliders = document.querySelectorAll('.slider');
 var slider1 = document.querySelector('.slider1');
 var slider2 = document.querySelector('.slider2');
 var slider3 = document.querySelector('.slider3');
 var slider4 = document.querySelector('.slider4');
-var listOfSliders = [slider2, slider3, slider4]
-var listOfCategories = ['Sci-Fi', 'Romance', 'Music']
+var listOfSliders = [slider2, slider3, slider4];
+var listOfCategories = ['Sci-Fi', 'Romance', 'Music'];
 var li = slider.querySelectorAll('ul li');
 var leftBtnAll = document.querySelectorAll('button.left');
 var rightBtnAll = document.querySelectorAll('button.right');
@@ -20,57 +20,46 @@ var leftBtn3 = slider3.querySelector('button.left');
 var rightBtn3 = slider3.querySelector('button.right');
 var leftBtn4 = slider4.querySelector('button.left');
 var rightBtn4 = slider4.querySelector('button.right');
+var leftButtonsSlider = [leftBtn, leftBtn2, leftBtn3, leftBtn4];
+var rightButtonsSlider = [rightBtn, rightBtn2, rightBtn3, rightBtn4];
 
 // FUNCTIONS FOR SCROLLING SLIDERS
 
-function scrollLeftFirstSlider() {
-  var lastLi = slider1.firstElementChild.lastElementChild;
-  slider1.firstElementChild.insertBefore(lastLi, slider1.firstElementChild.firstElementChild);
+function sliderScrollLeft(sliderNumber) {
+  var lastLi = sliderNumber.firstElementChild.lastElementChild;
+  sliderNumber.firstElementChild.insertBefore(lastLi, sliderNumber.firstElementChild.firstElementChild);
+}
+function sliderScrollRight(sliderNumber) {
+  var firstLi = sliderNumber.firstElementChild.firstElementChild;
+  sliderNumber.firstElementChild.appendChild(firstLi);
 }
 
-function scrollRightFirstSlider() {
-  var firstLi = slider1.firstElementChild.firstElementChild;
-  slider1.firstElementChild.appendChild(firstLi);
-}
+// SLIDERS LISTENERS
 
-function scrollLeftSecondSlider() {
-  var lastLi = slider2.firstElementChild.lastElementChild;
-  slider2.firstElementChild.insertBefore(lastLi, slider2.firstElementChild.firstElementChild);
-}
-
-function scrollRightSecondSlider() {
-  var firstLi = slider2.firstElementChild.firstElementChild;
-  slider2.firstElementChild.appendChild(firstLi);
-}
-
-function scrollLeftThirdSlider() {
-  var lastLi = slider3.firstElementChild.lastElementChild;
-  slider3.firstElementChild.insertBefore(lastLi, slider3.firstElementChild.firstElementChild);
-}
-
-function scrollRightThirdSlider() {
-  var firstLi = slider3.firstElementChild.firstElementChild;
-  slider3.firstElementChild.appendChild(firstLi);
-}
-
-function scrollLeftFourthSlider() {
-  var lastLi = slider4.firstElementChild.lastElementChild;
-  slider4.firstElementChild.insertBefore(lastLi, slider4.firstElementChild.firstElementChild);
-}
-
-function scrollRightFourthSlider() {
-  var firstLi = slider4.firstElementChild.firstElementChild;
-  slider4.firstElementChild.appendChild(firstLi);
-}
-
-rightBtn.addEventListener('click', scrollRightFirstSlider);
-leftBtn.addEventListener('click', scrollLeftFirstSlider);
-rightBtn2.addEventListener('click', scrollRightSecondSlider);
-leftBtn2.addEventListener('click', scrollLeftSecondSlider);
-rightBtn3.addEventListener('click', scrollRightThirdSlider);
-leftBtn3.addEventListener('click', scrollLeftThirdSlider);
-rightBtn4.addEventListener('click', scrollRightFourthSlider);
-leftBtn4.addEventListener('click', scrollLeftFourthSlider);
+rightBtn.addEventListener('click', function() {
+  sliderScrollRight(slider1);
+});
+leftBtn.addEventListener('click', function() {
+  sliderScrollLeft(slider1);
+});
+rightBtn2.addEventListener('click', function() {
+  sliderScrollRight(slider2);
+});
+leftBtn2.addEventListener('click', function() {
+  sliderScrollLeft(slider2);
+});
+rightBtn3.addEventListener('click', function() {
+  sliderScrollRight(slider3);
+});
+leftBtn3.addEventListener('click', function() {
+  sliderScrollLeft(slider3);
+});
+rightBtn4.addEventListener('click', function() {
+  sliderScrollRight(slider4);
+});
+leftBtn4.addEventListener('click', function() {
+  sliderScrollLeft(slider4);
+});
 
 // FUNCTION TO GET ALL IMAGE FROM CUSTOM API
 
@@ -78,7 +67,7 @@ leftBtn4.addEventListener('click', scrollLeftFourthSlider);
     fetch("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&page_size=8")
       .then(response => response.json())
       .then(data => {
-        button = document.createElement("button");
+        var button = document.createElement("button");
         var id = data.results[0].id;
         var img = document.getElementById("best_movie_picture");
         var best_movie_title = document.getElementById("best_movie_title");
@@ -98,15 +87,14 @@ leftBtn4.addEventListener('click', scrollLeftFourthSlider);
               modal.style.display = "block";
               createModalWindow(data.id);
             });
-          })
+          });
         best_movie_description.innerHTML = data.results.description;
-        img.setAttribute("id", id)
+        img.setAttribute("id", id);
         img.src = data.results[0].image_url;
         button.appendChild(img);
         best_movie.appendChild(button);
         console.log(best_movie_button);
         var btn = document.getElementById(id);
-        // var btn = document.getElementsByName("button-modal");
         btn.addEventListener("click", function(id) {
         modal.style.display = "block";
         createModalWindow(id);
@@ -114,21 +102,20 @@ leftBtn4.addEventListener('click', scrollLeftFourthSlider);
         for (var i = 1; i < 8; i++) {
           li = document.createElement("li");
           button = document.createElement("button");
-          var id = data.results[i].id;
+          id = data.results[i].id;
           img = document.createElement("img");
-          img.setAttribute("id", id)
+          img.setAttribute("id", id);
           img.src = data.results[i].image_url;
           li.appendChild(button);
           button.appendChild(img);
           slider1.firstElementChild.appendChild(li);
-          var btn = document.getElementById(id);
+          btn = document.getElementById(id);
           btn.addEventListener("click", function(id) {
-          console.log("hello click");
           modal.style.display = "block";
           createModalWindow(id);
           });
         }
-      })
+      });
     }
 
     
@@ -142,10 +129,10 @@ function GetBestMoviesForNextSliders() {}
     .then(data => {
       for (var i = 0; i < 7; i++) {
         li = document.createElement("li");
-        button = document.createElement("button");
+        var button = document.createElement("button");
         var id = data.results[i].id;
-        img = document.createElement("img");
-        img.setAttribute("id", id)
+        var img = document.createElement("img");
+        img.setAttribute("id", id);
         img.src = data.results[i].image_url;
         li.appendChild(button);
         button.appendChild(img);
@@ -157,8 +144,8 @@ function GetBestMoviesForNextSliders() {}
           createModalWindow(id);
         });
       }
-    })
-  })
+    });
+  });
 
 
 GetBestMoviesForNextSliders();
@@ -174,40 +161,44 @@ var span = document.getElementsByClassName("close")[0];
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
   displayAllDataInModal();
-}
+};
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
   if (event.target == modal) {
     displayAllDataInModal();
   }
-}
+};
+
+// FUNCTION TO RESET MODAL WINDOW CONTENT WITH ALL DATA DISPLAYED
 
 function displayAllDataInModal() {
   modal.style.display = "none";
-//   document.getElementById("th_title").style.display = "table-cell";
-//   document.getElementById("modal_title").style.display = "table-cell";
-//   document.getElementById("th_genre").style.display = "table-cell";
-//   document.getElementById("modal_genre").style.display = "table-cell";
-//   document.getElementById("th_year").style.display = "table-cell";
-//   document.getElementById("modal_year").style.display = "table-cell";
-//   document.getElementById("th_rate").style.display = "table-cell";
-//   document.getElementById("modal_rate").style.display = "table-cell";
-//   document.getElementById("th_imdb_score").style.display = "table-cell";
-//   document.getElementById("modal_imdb_score").style.display = "table-cell";
-//   document.getElementById("th_director").style.display = "table-cell";
-//   document.getElementById("modal_director").style.display = "table-cell";
-//   document.getElementById("th_actors").style.display = "table-cell";
-//   document.getElementById("modal_actors").style.display = "table-cell";
-//   document.getElementById("th_duration").style.display = "table-cell";
-//   document.getElementById("modal_duration").style.display = "table-cell";
-//   document.getElementById("th_country").style.display = "table-cell";
-//   document.getElementById("modal_country").style.display = "table-cell";
-//   document.getElementById("th_worldwide_gross_income").style.display = "table-cell";
-//   document.getElementById("modal_worldwide_gross_income").style.display = "table-cell";
-//   document.getElementById("th_description").style.display = "table-cell";
-//   document.getElementById("modal_description").style.display = "table-cell";
+  document.getElementById("th_title").style.display = "table-cell";
+  document.getElementById("modal_title").style.display = "table-cell";
+  document.getElementById("th_genre").style.display = "table-cell";
+  document.getElementById("modal_genre").style.display = "table-cell";
+  document.getElementById("th_year").style.display = "table-cell";
+  document.getElementById("modal_year").style.display = "table-cell";
+  document.getElementById("th_rate").style.display = "table-cell";
+  document.getElementById("modal_rate").style.display = "table-cell";
+  document.getElementById("th_imdb_score").style.display = "table-cell";
+  document.getElementById("modal_imdb_score").style.display = "table-cell";
+  document.getElementById("th_director").style.display = "table-cell";
+  document.getElementById("modal_director").style.display = "table-cell";
+  document.getElementById("th_actors").style.display = "table-cell";
+  document.getElementById("modal_actors").style.display = "table-cell";
+  document.getElementById("th_duration").style.display = "table-cell";
+  document.getElementById("modal_duration").style.display = "table-cell";
+  document.getElementById("th_country").style.display = "table-cell";
+  document.getElementById("modal_country").style.display = "table-cell";
+  document.getElementById("th_worldwide_gross_income").style.display = "table-cell";
+  document.getElementById("modal_worldwide_gross_income").style.display = "table-cell";
+  document.getElementById("th_description").style.display = "table-cell";
+  document.getElementById("modal_description").style.display = "table-cell";
 }
+
+// FUNCTION TO CREATE MODAL WINDOW CONTENT
 
 function createModalWindow(id) {
   if (typeof(id) === "object") {

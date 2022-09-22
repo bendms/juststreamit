@@ -160,42 +160,24 @@ var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
-  displayAllDataInModal();
+  displayAllDataInModalAndCloseIt();
 };
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
   if (event.target == modal) {
-    displayAllDataInModal();
+    displayAllDataInModalAndCloseIt();
   }
 };
 
 // FUNCTION TO RESET MODAL WINDOW CONTENT WITH ALL DATA DISPLAYED
 
-function displayAllDataInModal() {
+function displayAllDataInModalAndCloseIt() {
   modal.style.display = "none";
-  document.getElementById("th_title").style.display = "table-cell";
-  document.getElementById("modal_title").style.display = "table-cell";
-  document.getElementById("th_genre").style.display = "table-cell";
-  document.getElementById("modal_genre").style.display = "table-cell";
-  document.getElementById("th_year").style.display = "table-cell";
-  document.getElementById("modal_year").style.display = "table-cell";
-  document.getElementById("th_rate").style.display = "table-cell";
-  document.getElementById("modal_rate").style.display = "table-cell";
-  document.getElementById("th_imdb_score").style.display = "table-cell";
-  document.getElementById("modal_imdb_score").style.display = "table-cell";
-  document.getElementById("th_director").style.display = "table-cell";
-  document.getElementById("modal_director").style.display = "table-cell";
-  document.getElementById("th_actors").style.display = "table-cell";
-  document.getElementById("modal_actors").style.display = "table-cell";
-  document.getElementById("th_duration").style.display = "table-cell";
-  document.getElementById("modal_duration").style.display = "table-cell";
-  document.getElementById("th_country").style.display = "table-cell";
-  document.getElementById("modal_country").style.display = "table-cell";
-  document.getElementById("th_worldwide_gross_income").style.display = "table-cell";
-  document.getElementById("modal_worldwide_gross_income").style.display = "table-cell";
-  document.getElementById("th_description").style.display = "table-cell";
-  document.getElementById("modal_description").style.display = "table-cell";
+  var modalChilds = modal.childNodes;
+  modalChilds.forEach(child => {
+    child.style.display = "table-cell";
+  });
 }
 
 // FUNCTION TO CREATE MODAL WINDOW CONTENT
@@ -233,39 +215,12 @@ function createModalWindow(id) {
       worldwideGrossIncome.innerHTML = data.worldwide_gross_income + " $";
       var description = document.getElementById("modal_description");
       description.innerHTML = data.description;
-      if (title.textContent == "undefined" || title.textContent == "" || title.textContent == "null") {
-        document.getElementById("th_title").style.display = "none";
-        document.getElementById("modal_title").style.display = "none";
-      } if (genre.textContent == "undefined" || genre.textContent == "" || genre.textContent == "null") {
-        document.getElementById("th_genre").style.display = "none";
-        document.getElementById("modal_genre").style.display = "none";
-      } if (year.textContent == "undefined" || year.textContent == "" || year.textContent == "null") {
-        document.getElementById("th_year").style.display = "none";
-        document.getElementById("modal_year").style.display = "none";
-      } if (rate.textContent == "Not rated or unkown rating" || rate.textContent == "" || rate.textContent == "null") {
-        document.getElementById("th_rate").style.display = "none";
-        document.getElementById("modal_rate").style.display = "none";
-      } if (imdbScore.textContent == "undefined" || imdbScore.textContent == "" || imdbScore.textContent == "null") {
-        document.getElementById("th_imdb_score").style.display = "none";
-        document.getElementById("modal_imdb_score").style.display = "none";
-      } if (director.textContent == "undefined" || director.textContent == "" || director.textContent == "null") {
-        document.getElementById("th_director").style.display = "none";
-        document.getElementById("modal_director").style.display = "none";
-      } if (actors.textContent == "undefined" || actors.textContent == "" || actors.textContent == "null") {
-        document.getElementById("th_actors").style.display = "none";
-        document.getElementById("modal_actors").style.display = "none";
-      } if (duration.textContent == "undefined" || duration.textContent == "" || duration.textContent == "null") {
-        document.getElementById("th_duration").style.display = "none";
-        document.getElementById("modal_duration").style.display = "none";
-      } if (country.textContent == "undefined" || country.textContent == "" || country.textContent == "null") {
-        document.getElementById("th_country").style.display = "none";
-        document.getElementById("modal_country").style.display = "none";
-      } if (worldwideGrossIncome.textContent == "undefined " || worldwideGrossIncome.textContent == "" || worldwideGrossIncome.textContent == "null $") {
-        document.getElementById("th_worldwide_gross_income").style.display = "none";
-        document.getElementById("modal_worldwide_gross_income").style.display = "none";
-      } if (description.textContent == "undefined" || description.textContent == "" || description.textContent == "null" || description.textContent == "Add a Plot »") {
-        document.getElementById("th_description").style.display = "none";
-        document.getElementById("modal_description").style.display = "none";
+      modalElementsList = [title, genre, year, rate, imdbScore, director, actors, duration, country, worldwideGrossIncome, description];
+      for (var i = 0; i < modalElementsList.length; i++) {
+        if (modalElementsList[i].textContent == "undefined" || modalElementsList[i].textContent == "" || modalElementsList[i].textContent == "null") {
+          modalElementsList[i].parentElement.style.display = "none";
+          modalElementsList[i].style.display = "none";
+        }
       }
     });
 }

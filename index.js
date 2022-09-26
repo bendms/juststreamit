@@ -61,7 +61,7 @@ leftBtn4.addEventListener('click', function() {
   sliderScrollLeft(slider4);
 });
 
-// FUNCTION TO GET ALL IMAGE FROM CUSTOM API
+// FUNCTION TO GET ALL IMAGES FROM CUSTOM API
 
   function getBestMovies() {
     fetch("http://localhost:8000/api/v1/titles/?sort_by=-imdb_score&page_size=8")
@@ -78,7 +78,6 @@ leftBtn4.addEventListener('click', function() {
             best_movie_title.innerHTML = data.title;
             best_movie_description.innerHTML = data.description;
             best_movie_button = document.createElement("button");
-            console.log(best_movie_button);
             best_movie_text.appendChild(best_movie_button);
             best_movie_button.innerHTML = "Voir plus";
             best_movie_button.setAttribute("class", "best_movie_button");
@@ -93,7 +92,6 @@ leftBtn4.addEventListener('click', function() {
         img.src = data.results[0].image_url;
         button.appendChild(img);
         best_movie.appendChild(button);
-        console.log(best_movie_button);
         var btn = document.getElementById(id);
         btn.addEventListener("click", function(id) {
         modal.style.display = "block";
@@ -121,6 +119,8 @@ leftBtn4.addEventListener('click', function() {
     
 getBestMovies();
 
+// FUNCTION TO GET ALL INFORMATIONS FOR SLIDER 2, 3 AND 4 WITH SPECIFIC CATEGORIES
+
 function GetBestMoviesForNextSliders() {}
   listOfCategories.forEach((category, index) => {
     const sliderNumber = listOfSliders[index];
@@ -139,7 +139,6 @@ function GetBestMoviesForNextSliders() {}
         sliderNumber.firstElementChild.appendChild(li);
         var btn = document.getElementById(id);
         btn.addEventListener("click", function(id) {
-          console.log("hello click");
           modal.style.display = "block";
           createModalWindow(id);
         });
@@ -204,8 +203,6 @@ function createModalWindow(id) {
   if (typeof(id) === "object") {
     id = id.target.id;
   }
-  console.log(id);
-  console.log(typeof(id));
   fetch("http://localhost:8000/api/v1/titles/" + id)  
     .then(response => response.json())
     .then(data => {
